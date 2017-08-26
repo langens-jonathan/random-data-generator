@@ -41,7 +41,7 @@ module.exports = {
             return "\"" + data + "\"";
         }
 
-        if(format === "string") {
+        if(format === "date") {
             return "\"" + data + "\"^^xsd:date";
         }
 
