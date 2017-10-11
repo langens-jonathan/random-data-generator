@@ -57,14 +57,20 @@ to fill your triple store with your random data.
 ### More elaborate example
 Suppose there are 2 types in our world, Person and Quote. 
 As you can see quote is 'owned' by the person who made
-the quote. In javascript the object that we will save looks like:
+the quote. In javascript the object that we will save looks like this, where John owns
+two quotes, one which will be newly created, and an existing one whose id and uri were
+returned by a previous query:
 ```
 var person = {
    name: "John Snow",
    email: "john.snow@winterfell.com",
    quotes: [
      {
-       content: "I know nothing",
+       content: "I know nothing"
+     },
+     {
+       id: "71f3c84a-9207-4eec-88ae-53cc5296bf07",
+       uri: "http://example.com/quote/71f3c84a-9207-4eec-88ae-53cc5296bf07"
      }
    ]
  }
