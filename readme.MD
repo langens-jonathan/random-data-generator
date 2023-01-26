@@ -8,16 +8,28 @@ small node application.
 
 Then this library can be used to transform those javascript objects to triples in your triple store.
 
-## Getting your javascript objects in SPARQL
-We use small transform property objects to describe which keys to serialize and how. For instance suppose we have the following object:
+## How-To
+### Installation
+Just clone this repository and run
+```bash
+npm install
 ```
+and you are good to go! After that modify generate.js at will and run:
+```bash
+node generate.js
+```
+to fill your triple store with your random data.
+
+### Getting your javascript objects in SPARQL
+We use small transform property objects to describe which keys to serialize and how. For instance suppose we have the following object:
+```js
 var john = {
   name: "John Snow",
   home: "Winterfell"
 }
 ```
 And a properties object such as this:
-```
+```js
 var personProperties = [
 {   key: "name",
         predicate: "http://xmlns.com/foaf/0.1/name",
@@ -31,7 +43,7 @@ var personProperties = [
 
 Then John will by correctly transformed to SPARQL by this library.
 
-## Generating Random Data
+### Generating Random Data
 The library features several helper methods that generate random data and objects.
 ```
 var randomPerson = generators.getRandomPerson();
@@ -42,25 +54,15 @@ var randomDate = generators.getRandomDate(new Date("01-01-1970"), new Date());
 
 These methods can then be used to construct your objects after this you call the writeObjectToStore method, sit back and relax.
 
-## Installation
-Just clone this repository and run
-```
-npm install
-```
-and you are good to go! After that modify generate.js at will and run:
-```
-node generate.js
-```
-to fill your triple store with your random data.
+## Tutorials
 
-## API
-### More elaborate example
+### More elaborate API example
 Suppose there are 2 types in our world, Person and Quote. 
 As you can see quote is 'owned' by the person who made
 the quote. In javascript the object that we will save looks like this, where John owns
 two quotes, one which will be newly created, and an existing one whose id and uri were
 returned by a previous query:
-```
+```js
 var person = {
    name: "John Snow",
    email: "john.snow@winterfell.com",
@@ -74,9 +76,9 @@ var person = {
      }
    ]
  }
- ```
- We then define the model for quote as follows:
- ```
+```
+We then define the model for quote as follows:
+```js
 var quoteClass = "http://example.com/Quote";
 var quoteBase = "http://example.com/quotes/";
 var quoteProperties = [
@@ -92,7 +94,7 @@ var quoteProperties = [
 ```
 
 The model for person is a bit more complicated, not only because it has more properties but also because it owns a relationship:
-```
+```js
 var personClass = "http://example.com/Person";
 var personBase = "http://exampl.com/persons/";
 var personProperties = [
@@ -126,17 +128,18 @@ var personProperties = [
 ];
 ```
 now remember John? Well if we want to store him in the triple store we just call:
-```
+```js
 writeObjectToStore(john, personClass, personBase, personProperties);
 ```
 Then John will be triplified, easy peasy!
 
 John and his relations are correctly save to the triple store with
 a UUID so that the generated data can be used in a traditional mu.semte.ch applicaiton.
- 
+
+## Reference
 ### modules
 There are 2 modules in this library and they are included in the generate.js file as follows:
-```
+```js
 var helpers = require('./sparql-helpers');
 var generators = require('./random-data-generators.js');
 ```
